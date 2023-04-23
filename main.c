@@ -6,22 +6,30 @@ int main(int argc, char *argv[]) {
 	char menu;
 	Tim tim[TimMax];
 	init(tim);
-	
-	while(1){
-		printf("[1]. Panitia");
+	srand(time(NULL));
+	do{
+		system("cls");
+		printf("\n\t--== Registrasi Tim Futsal ==--\n");
+		printf("\n[1]. Panitia");
 		printf("\n[2]. Manager");
+		printf("\n[ESC]. Exit");
+		printf("\n>>> ");
 		menu=getch();
 		switch(menu){
 			case '1':
 				gotoLoginPanitia();
+				gotoPanitiaMenu(tim);
 				break;
 			case '2':
 				//gotoManager();
 				break;
+			case 27:
+				printf("\n[!] Keluar dari program . . .");
+			break;
 			default:
-				printf("\nMenu tidak ada");
-				printf("test");
-		}
-	}
+				printf("\n\t[!] Menu tidak tersedia");
+			break;
+		}getch();
+	}while(menu!=27);
 	return 0;
 }
