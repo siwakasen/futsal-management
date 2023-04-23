@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
 				break;
 			default:
 				printf("\nMenu tidak ada");
+				printf("test");
 		}
 	}
 	return 0;
