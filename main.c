@@ -6,8 +6,10 @@ int main(int argc, char *argv[]) {
 	char menu;
 	Tim tim[TimMax];
 	init(tim);
-	
+	testInit(tim);
+	int cekLoginTim;
 	while(1){
+		system("cls");
 		printf("[1]. Panitia");
 		printf("\n[2]. Manager");
 		menu=getch();
@@ -16,10 +18,14 @@ int main(int argc, char *argv[]) {
 				gotoLoginPanitia();
 				break;
 			case '2':
-				//gotoManager();
+				cekLoginTim = LoginManager(tim);
+				if(cekLoginTim>=0){
+					menuTim(tim,cekLoginTim);
+				}
 				break;
 			default:
 				printf("\nMenu tidak ada");
+				getch();
 		}
 	}
 	return 0;

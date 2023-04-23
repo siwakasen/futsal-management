@@ -21,10 +21,28 @@ typedef struct {
 
 
 void init(Tim tim[]);
+void testInit(Tim tim[]);
+
 void makeCaptcha();
 
-int cekLogin(string username, string password);
-int cekEmptyTim();
-
+int cekLoginAdmin(string username, string password);
 void gotoLoginPanitia();
 void gotoPanitiaMenu();
+int LoginManager(Tim tim[]);
+
+/////////////////////////////////////////////////////////
+int menuTim(Tim tim[],int id);
+
+int loginTim(Tim tim[],string username,string password);
+
+Pemain makePemain(string nama,int no,float harga);
+
+int cekJumlahPemain(Tim tim);
+int cekNoPunggungPemain(Pemain pemain[], int cek);
+
+int findTimByNama(Tim tim[],string search);
+int findPemainByNoPunggung(Pemain pemain[], int search);
+
+void bubbleSortPemain(Pemain pemain[]);
+int tampilPemain(Pemain pemain);
+int tampilPemainTim(Pemain pemain[]);
