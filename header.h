@@ -67,6 +67,5 @@ int cekNoPunggungPemain(Pemain pemain[], int cek);
 int findTimByNama(Tim tim[],string search);
 int findPemainByNoPunggung(Pemain pemain[], int search);
 
-void bubbleSortPemain(Pemain pemain[]);
 int tampilPemain(Pemain pemain);
 int tampilPemainTim(Pemain pemain[]);

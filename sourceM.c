@@ -4,13 +4,14 @@ int LoginManager(Tim tim[]){
 	string user,pass;
 	int cekLogin=-1;
 	int i;
+	printf("\n\t[Login Manager]");
 	printf("\n\tUsername: ");fflush(stdin);gets(user);
 	printf("\tPassword: ");fflush(stdin);gets(pass);
 	cekLogin=loginTim(tim,user,pass);
 	if(cekLogin>=0){
-		printf("\n\tLogin Berhasil..."); getch();
+		printf("\n\t[~] Login Berhasil..."); getch();
 	}else{
-		printf("\n\tUsername atau password salah!");
+		printf("\n\t[!] Username atau password salah");
 	}
 	return cekLogin;
 }
@@ -50,11 +51,10 @@ int menuTim(Tim tim[], int id){
 					printf("\n\t[!] Pemain sudah penuh!");
 				}else{
 					printf("\n\t[Pendaftaran Pemain]\n");
-					do{
-						printf("\tNama Pemain: ");fflush(stdin);gets(namaPemain);
-						if(strlen(namaPemain)==0) printf("\t[!] Nama pemain tidak boleh kosong");
-						else if(strcmp(namaPemain,"-")==0) printf("\t[!] Nama pemain tidak boleh menggunakan'-'");
-						printf("\n");
+					do{	
+						printf("\tNama Pemain : ");fflush(stdin);gets(namaPemain);
+						if(strlen(namaPemain)==0) printf("\t[!] Nama pemain tidak boleh kosong\n");
+						else if(strcmp(namaPemain,"-")==0) printf("\t[!] Nama pemain tidak boleh menggunakan '-'\n");
 					}while(strlen(namaPemain)==0 || strcmp(namaPemain,"-")==0);
 					noPunggung = 1;
 					while(1){
@@ -67,7 +67,7 @@ int menuTim(Tim tim[], int id){
 					do{
 						printf("\tMasukkan harga pemain : "); scanf("%f", &hargaPemain);
 						if(hargaPemain<0){
-							printf("\t[!] Harga Pemain tidak boleh kurang dari 0");
+							printf("\t[!] Harga Pemain tidak boleh kurang dari 0\n");
 						}
 					}while(hargaPemain<0);
 					tim[id].pemain[indexPemain] = makePemain(namaPemain,noPunggung,hargaPemain);
@@ -78,23 +78,23 @@ int menuTim(Tim tim[], int id){
 				indexPemain = cekNoPunggungPemain(tim[id].pemain,0);//cek masih ada kosong tidak
 				if(indexPemain!=-1){
 					printf("\n\t[Transfer Pemain]\n");
-					printf("\tCari Tim: ");fflush(stdin);gets(search);
+					printf("\tCari Tim : ");fflush(stdin);gets(search);
 					searchedTim = findTimByNama(tim,search);
 					if(searchedTim==-1){
-						printf("\n\t[!] Tim tidak ditemukan!");
+						printf("\n\t[!] Tim tidak ditemukan");
 					}else if(searchedTim==id){
-						printf("\n\t[!] Tim invalid!");
+						printf("\n\t[!] Tim invalid");
 					}else if(cekJumlahPemain(tim[searchedTim])==0){
-						printf("\n\t[!] Tim tidak punya pemain!");
+						printf("\n\t[!] Tim tidak punya pemain");
 					}else{
 						tampilPemainTim(tim[searchedTim].pemain);
-						printf("\nPemain yang ingin ditransfer[No Punggung]: ");scanf("%d",&noPunggung);
+						printf("\n\tPemain yang ingin ditransfer[No Punggung] : ");scanf("%d",&noPunggung);
 						indexPemain2 = cekNoPunggungPemain(tim[searchedTim].pemain,noPunggung);
 						if( indexPemain2 == -1){
-							printf("\n\t[!] Pemain tidak ditemukan!");
+							printf("\n\t[!] Pemain tidak ditemukan");
 						}else if(tim[searchedTim].pemain[indexPemain2].harga>tim[id].saldo){
 							tampilPemain(tim[searchedTim].pemain[indexPemain2]);
-							printf("\n\t[!] Saldo tidak cukup!");
+							printf("\n\t[!] Saldo tidak cukup");
 						}else{
 							tim[id].saldo -= tim[searchedTim].pemain[indexPemain2].harga;
 							tim[searchedTim].saldo += tim[searchedTim].pemain[indexPemain2].harga;
@@ -109,9 +109,11 @@ int menuTim(Tim tim[], int id){
 							tim[id].pemain[indexPemain] = tim[searchedTim].pemain[indexPemain2];
 							tim[id].pemain[indexPemain].noPunggung = noPunggung;
 							tim[searchedTim].pemain[indexPemain2] = makePemain("-",0,0);
-							printf("\n\t[!] Pemain telah ditransfer...");
+							printf("\n\t[~] Pemain telah ditransfer...");
 						}
 					}
+				}else{
+					printf("\n\t[!] Pemain pada tim ini sudah penuh");
 				}
 				break;
 			case '3':
@@ -121,18 +123,23 @@ int menuTim(Tim tim[], int id){
 					if(indexPemain!=-1){
 						printf("\n\t[Hapus Pemain]\n");
 						tampilPemain(tim[id].pemain[indexPemain]);
-						printf("\n\tYakin ingin dihapus ? (y/n) : ");fflush(stdin);gets(konfirm);
-						if(strcmpi(konfirm,"y")==0){
-							tim[id].pemain[indexPemain] = makePemain("-",0,0);
-							printf("\n\t[!] Data terhapus...");
-						}else{
-							printf("\n\t[!] Data tidak terhapus...");
-						}
+						do{
+							printf("\n\tYakin ingin dihapus ? (y/n) : ");fflush(stdin);gets(konfirm);
+							if(strcmpi(konfirm,"y")==0){
+								tim[id].pemain[indexPemain] = makePemain("-",0,0);
+								printf("\n\t[!] Data pemain berhasil dihapus");
+							}else if(strcmpi(konfirm,"n")==0){
+								printf("\n\t[!] Data pemain tidak jadi dihapus");
+							}else{
+								printf("\t[!] Inputan invalid\n");
+							}
+						}while(strcmpi(konfirm,"y")!=0 && strcmpi(konfirm,"n")!=0);
+						
 					}else{
-						printf("\n\t[!] Pemain tidak ditemukan!");
+						printf("\n\t[!] Pemain tidak ditemukan");
 					}
 				}else{
-					printf("\n\t[!] Tidak ada pemain!");
+					printf("\n\t[!] Tidak ada pemain");
 				}
 				
 				break;
@@ -143,39 +150,44 @@ int menuTim(Tim tim[], int id){
 					if(indexPemain!=-1){
 						printf("\n\t[Edit Data Pemain]\n");
 						tampilPemain(tim[id].pemain[indexPemain]);
-						printf("\n\tYakin ingin diubah ? (y/n) : ");fflush(stdin);gets(konfirm);
-						if(strcmpi(konfirm,"y")==0){
-							
-							printf("\nNama Pemain: ");fflush(stdin);gets(namaPemain);
-							printf("\nHarga\t: ");scanf("%f",&hargaPemain);
-							do{
-								printf("\tNama Pemain: ");fflush(stdin);gets(namaPemain);
-								if(strlen(namaPemain)==0) printf("\t[!] Nama pemain tidak boleh kosong");
-								else if(strcmp(namaPemain,"-")==0) printf("\t[!] Nama pemain tidak boleh menggunakan'-'");
-								printf("\n");
-							}while(strlen(namaPemain)==0 || strcmp(namaPemain,"-")==0);
-							
-							do{
-								printf("\tMasukkan harga pemain : "); scanf("%f", &hargaPemain);
-								if(hargaPemain<0){
-									printf("\t[!] Harga Pemain tidak boleh kurang dari 0");
-								}
-							}while(hargaPemain<0);
+						do{
+							printf("\n\tYakin ingin diubah ? (y/n) : ");fflush(stdin);gets(konfirm);
+							if(strcmpi(konfirm,"y")==0){
+								do{
+									printf("\tNama Pemain: ");fflush(stdin);gets(namaPemain);
+									if(strlen(namaPemain)==0) printf("\t[!] Nama pemain tidak boleh kosong\n");
+									else if(strcmp(namaPemain,"-")==0) printf("\t[!] Nama pemain tidak boleh menggunakan '-'\n");
+									else if(strcmp(namaPemain,tim[id].pemain[indexPemain].namaPemain)==0) printf("\t[!] Nama pemain tidak boleh sama\n");
+								}while(strlen(namaPemain)==0 || strcmp(namaPemain,"-")==0 || strcmp(namaPemain,tim[id].pemain[indexPemain].namaPemain)==0);
+								
+								do{
+									printf("\tMasukkan harga pemain : "); scanf("%f", &hargaPemain);
+									if(hargaPemain<0){
+										printf("\t[!] Harga Pemain tidak boleh kurang dari 0\n");
+									}
+								}while(hargaPemain<0);
 
-							tim[id].pemain[indexPemain] = makePemain(namaPemain,noPunggung,hargaPemain);
-							printf("\n\t[!] Data berhasil diedit");
-						}else{
-							printf("\n\t[!] Edit data dibatalkan");
-						}
+								tim[id].pemain[indexPemain] = makePemain(namaPemain,noPunggung,hargaPemain);
+								printf("\n\t[!] Data berhasil diedit");
+							}else if(strcmpi(konfirm,"n")==0){
+								printf("\n\t[!] Edit data dibatalkan");
+							}else{
+								printf("\t[!] Inputan invalid\n");
+							}
+						}while(strcmpi(konfirm,"y")!=0 && strcmpi(konfirm,"n")!=0);
 					}else{
-						printf("\n\t[!] Pemain tidak ditemukan!");
+						printf("\n\t[!] Pemain tidak ditemukan");
 					}
 				}else{
-					printf("\n\t[!] Tidak ada pemain!");
+					printf("\n\t[!] Tidak ada pemain");
 				}
 				break;
 			case '5':
-				tampilPemainTim(tim[id].pemain);
+				if(cekJumlahPemain(tim[id])>0){
+					tampilPemainTim(tim[id].pemain);
+				}else{
+					printf("\n\t[!] Tidak ada pemain");
+				}
 				break;
 			case 27:
 				printf("\n\t[!] Kembali ke menu utama . . .");
@@ -231,25 +243,10 @@ int findPemainByNoPunggung(Pemain pemain[], int search){
 	}
 	return -1;
 }
-// void bubbleSortPemain(Pemain pemain[]){
-// 	int i,swap;
-// 	Pemain temp;
-// 	do{
-// 		swap=0;
-// 		for(i=0;i<PemainMax-1;i++){
-// 			if(pemain[i].noPunggung !=0 && pemain[i].noPunggung > pemain[i+1].noPunggung){
-// 				temp = pemain[i];
-// 				pemain[i] = pemain[i+1];
-// 				pemain[i+1] = temp;
-// 				swap=1;
-// 			}
-// 		}
-// 	}while(swap);
-// }
 
 
 int tampilPemain(Pemain pemain){
-	printf("\n\tNomor Punggung: %d",pemain.noPunggung);
+	printf("\n\tNomor Punggung  : %d",pemain.noPunggung);
 	printf("\n\tNama\t\t: %s",pemain.namaPemain);
 	printf("\n\tHarga\t\t: Rp.%.2f\n",pemain.harga);
 }

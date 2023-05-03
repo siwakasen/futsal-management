@@ -62,6 +62,7 @@ bool cekLogin(string username, string password){
 void gotoLoginPanitia(){
 	string username,password;
 	while(1){
+		printf("\n\t[Login Panitia]");
 		printf("\n\tUsername: ");fflush(stdin);gets(username);
 		printf("\tPassword: ");fflush(stdin);gets(password);
 		if(cekLogin(username,password)){

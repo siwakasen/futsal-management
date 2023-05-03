@@ -7,21 +7,6 @@ int main(int argc, char *argv[]) {
 	init(tim);
 	int cekLoginTim;
 	srand(time(NULL));
-	
-
-		//DUMMY
-//		int i,j; 
-//		string name;
-//		char a='A';
-//		for(i=0;i<4;i++){
-//			strncat(name,&a,1);
-//			strcpy(tim[i].namaTim,name);
-//			a++;
-//			for(j=0;j<5;j++){
-//				strcpy(tim[i].pemain[j].namaPemain,"excalibur");
-//			}
-//		}
-	
 
 	do{
 		system("cls");
@@ -43,10 +28,10 @@ int main(int argc, char *argv[]) {
 				}
 				break;
 			case 27:
-				printf("\n[!] Keluar dari program . . .");
+				printf("\n[~] Keluar dari program . . .");
 			break;
 			default:
-				printf("\n\t[!] Menu tidak tersedia");
+				printf("\n[!] Menu tidak tersedia");
 			break;
 		}
 		getch();
